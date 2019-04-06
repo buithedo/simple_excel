@@ -152,20 +152,34 @@ int main() {
 	}
 
 	// Check Circular
-	//for (int i = 0; i < sheet.size(); i++) {
-	//	if ()
-	//}
+	bool is_check_circular = false;
+	for (int i = 0; i < sheet.size(); i++) {
+		if (is_check_circular == true) {
+			break;
+		}
+		for (int j = 0; j < sheet.size(); j++) {
+			if (sheet.at(j).formula.find(sheet.at(i).name) != string::npos ){
+				if (sheet.at(i).formula.find(sheet.at(j).name) != string::npos) {
+					cout << "Circular dependency between "<<sheet.at(i).name<<" and "<<sheet.at(j).name<<" detected";
+					is_check_circular = true;
+					break;
+				}
+			}			
+		}
+	}
 
 	// Print result
-	for (int i = 0; i < sheet.size(); i++) {
-		sheet.at(i).print();
-		if (i < sheet.size() - 1) {
-			cout << endl;
+	if (is_check_circular == false) {
+		for (int i = 0; i < sheet.size(); i++) {
+			sheet.at(i).print();
+			if (i < sheet.size() - 1) {
+				cout << endl;
+			}
 		}
 	}
 	
-	cout << endl;
-	system("pause");
+	//cout << endl;
+	//system("pause");
 }
 
 
